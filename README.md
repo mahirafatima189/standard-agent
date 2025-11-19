@@ -65,6 +65,45 @@ Before running the agent, you need to create a `.env` file in the root of the pr
 
 See [.env.example](./.env.example) for the complete configuration template with detailed comments and setup instructions.
 
+````md
+### Configuration Validation
+
+To help catch setup issues early, the project includes a configuration validation script that checks:
+
+- Required environment variables  
+- JSON/YAML configuration file structure  
+- Presence of required keys such as `agent_type`  
+- (Optional) API/network connectivity to endpoints referenced in config  
+
+Run this script before starting any agent to ensure your environment is correctly configured.
+
+#### Validate a config file
+
+```bash
+python scripts/validate_config.py --config config.yaml
+````
+
+#### Validate required environment variables
+
+```bash
+python scripts/validate_config.py \
+  --config config.yaml \
+  --env-vars LLM_MODEL,OPENAI_API_KEY,JENTIC_AGENT_API_KEY
+```
+
+#### Optional: Check network/API connectivity
+
+```bash
+python scripts/validate_config.py --config config.yaml --check-network
+```
+
+#### Script help
+
+```bash
+python scripts/validate_config.py --help
+```
+
+
 #### Key Requirements:
 - **LLM Model**: `LLM_MODEL` - Choose your preferred model
 - **LLM Provider**: At least one API key (Anthropic, OpenAI, or Google)
